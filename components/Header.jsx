@@ -11,16 +11,25 @@ export default function Header() {
   const pathname = usePathname()
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isCategoryOpen, setCategoryOpen] = useState(false);
+  const [isCategoryOpenFlag, setCategoryOpenFlag] = useState(false);
   const [categories, setCategories] = useState([]);
   const [keyword, setKeyword] = useState('');
   const router = useRouter()
   const [searchComplete, setSearchComplete] = useState(false)
   const [reportList, setReportList] = useState([])
+  let timeoutVal;
 
   const handleEnterSearch = (e) => {
     if (e.key === 'Enter') {
       handleSearch();
     }
+  }
+  const setCategoryCloseWithDelay = (time) => {
+    timeoutVal = setTimeout(()=>{
+      if(isCategoryOpenFlag){
+        setCategoryOpen(false)
+      }
+    },time)
   }
 
   const handleSearch = () => {
@@ -121,7 +130,7 @@ export default function Header() {
               </button>
               <nav
                 id="navbarCollapse"
-                className={`absolute right-4 top-full w-full max-w-[250px] rounded-lg bg-white py-4 px-6 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none z-20 ${!isMenuOpen && "hidden"
+                className={`absolute right-4 top-full w-full max-w-[250px] rounded-lg bg-white px-6 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none z-20 ${!isMenuOpen && "hidden"
                   } `}
               >
                 <div className="block lg:flex">
@@ -129,11 +138,11 @@ export default function Header() {
                     <Link className='flex py-2 text-base font-medium lg:ml-12 lg:inline-flex' onClick={() => { setMenuOpen(!isMenuOpen); setCategoryOpen(false) }} href="/">Home</Link>
                   </div> */}
                   
-                  <div className="relative">
+                  <div className="relative md:py-4" onMouseEnter={() => setCategoryOpen(false)}>
                     <Link className='flex py-2 text-base font-medium lg:ml-12 lg:inline-flex' href="/">Home</Link>
                   </div>
-                  <div className="relative cursor-pointer">
-                    <div className='flex items-center gap-2 py-2 text-base font-medium lg:ml-12 lg:inline-flex' onClick={() => setCategoryOpen(!isCategoryOpen)}>
+                  <div className="relative cursor-pointer md:py-4" onClick={()=>setCategoryOpen(!isCategoryOpen)} onMouseEnter={() => setCategoryOpen(true)}>
+                    <div className='flex items-center gap-2 py-2 text-base font-medium lg:ml-12 lg:inline-flex'>
                       <div>Category</div>
                       {
                         <svg xmlns="http://www.w3.org/2000/svg" className={`icon icon-tabler icon-tabler-chevron-up transition-all duration-200 ${isCategoryOpen ? 'rotate-0' : 'rotate-180'}`} width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -143,8 +152,7 @@ export default function Header() {
                       }
                     </div>
                     {
-
-                      <div id='openedCategoryDropDown' className={`absolute z-20 bg-white py-6 px-10  shadow-2xl rounded-md top-[100%] md:top-[170%] left-[-35%] md:left-[-120%] text-sm w-[300px] md:w-[550px] transition-all duration-200 ${isCategoryOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+                      <div id='openedCategoryDropDown' onMouseEnter={()=>{setCategoryOpenFlag(true); clearTimeout(timeoutVal);}} onMouseLeave={()=>setCategoryCloseWithDelay(500)} className={`absolute z-20 bg-white py-6 px-10  shadow-2xl rounded-md top-[100%] md:top-[120%] left-[-35%] md:left-[-120%] text-sm w-[300px] md:w-[550px] transition-all duration-200 ${isCategoryOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
                         <div className="grid grid-cols-1 gap-x-2 gap-y-0 md:grid-cols-2">
                           {categories.map((res, index) => {
                             return (
@@ -158,19 +166,19 @@ export default function Header() {
                       </div >
                     }
                   </div >
-                  <div className="relative">
+                  <div className="relative md:py-4" onMouseEnter={() => setCategoryOpen(false)}>
                     <Link className='flex py-2 text-base font-medium lg:ml-12 lg:inline-flex' onClick={() => { setMenuOpen(!isMenuOpen); setCategoryOpen(false) }} href="/press-releases/all-industries">Press Release</Link>
                   </div>
-                  <div className="relative">
+                  <div className="relative md:py-4" onMouseEnter={() => setCategoryOpen(false)}>
                     <Link className='flex py-2 text-base font-medium lg:ml-12 lg:inline-flex' onClick={() => { setMenuOpen(!isMenuOpen); setCategoryOpen(false) }} href="/offering">Offerings</Link>
                   </div>
-                  < div className="relative" >
+                  < div className="relative md:py-4 onMouseEnter={() => setCategoryOpen(false)}" >
                     <Link className='flex py-2 text-base font-medium lg:ml-12 lg:inline-flex' onClick={() => { setMenuOpen(!isMenuOpen); setCategoryOpen(false) }} href="/contact">Contact</Link>
                   </ div>
-                  <div className="relative">
+                  <div className="relative md:py-4" onMouseEnter={() => setCategoryOpen(false)}>
                     <Link className='flex py-2 text-base font-medium lg:ml-12 lg:inline-flex' onClick={() => { setMenuOpen(!isMenuOpen); setCategoryOpen(false) }} href="/about">About</Link>
                   </div>
-                  <div className={`relative ${(pathname == '/') && 'hidden'}`}>
+                  <div onMouseEnter={() => setCategoryOpen(false)} className={`relative hidden md:py-4 ${(pathname == '/') && 'hidden'} ${(pathname != '/') && 'md:block'}`}>
                     <div className="flex items-center gap-4 lg:ml-12">
                       <button type="button" className="hover:border-gray-7 md:border-gray-6 flex h-5 w-5 items-center justify-start md:h-auto md:w-64 md:flex-none md:rounded-lg md:border md:bg-backgroundSecondary md:py-2 md:pl-4 md:pr-3.5 md:text-sm">
                         <input type="text" value={keyword} onKeyDown={handleEnterSearch} onChange={(e) => setKeyword(e.target.value)} className="w-full pr-4 outline-none" placeholder="Search Market Report" />

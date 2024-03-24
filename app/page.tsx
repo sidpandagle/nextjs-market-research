@@ -7,6 +7,7 @@ import LatestReports from '@/components/LatestReports'
 import Insights from '@/components/Insights'
 import LatestPressRelease from '@/components/LatestPressRelease'
 import Services from '@/components/Services'
+import ScrollToTopButton from '@/components/ScrollToTopButton'
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <Testimonial />
       <AboutHome />
       <Clients />
+      <ScrollToTopButton/>
     </section >
   )
 }
