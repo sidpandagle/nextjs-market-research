@@ -5,6 +5,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import ScrollToTopButton from '@/components/ScrollToTopButton'
 import { GoogleTagManager } from '@next/third-parties/google'
 
 export default function RootLayout({
@@ -18,6 +19,7 @@ export default function RootLayout({
         <Header></Header>
         {children}
         <Footer></Footer>
+        <ScrollToTopButton/>
       </body>
       <GoogleTagManager gtmId="GTM-PLCKML74" />
     </html>
