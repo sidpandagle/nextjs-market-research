@@ -91,7 +91,7 @@ export default function Search() {
                     <div className='hidden md:block w-1/2 h-[2px] bg-white'>
                     </div>
                 </div>
-                <div className='h-20'>
+                <div className='md:h-20'>
                     <motion.div initial={{ opacity: 0, y: '25%' }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: 0.2 }} viewport={{ once: true }}>
                         <div className='grid items-start justify-center w-full grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-7 lg:grid-cols-14'>
                         {
