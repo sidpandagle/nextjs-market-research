@@ -125,7 +125,7 @@ export default function PressReleases({ params }) {
                                         </Link>
                                         {categoryList.map((res, key) => {
                                             return (
-                                                <Link key={key} href={`/press-releases/${res.category_url}`} onClick={scrollToTop}>
+                                                <Link key={key} href={`/press-releases/${res.category_url}`}>
                                                     {/* <div className={`py-2 text-sm cursor-pointer hover:text-primary ${res.category_url === url && 'text-primary'} ${key < categoryList.length - 1 && 'border-b-2'}`} key={key}>{res.category_name} ({res.count})</div> */}
                                                     <div className={`py-2 text-sm cursor-pointer hover:text-primary ${res.category_url === url && 'text-primary'} ${key < categoryList.length - 1 && 'border-b-2'}`} key={key}>{res.category_name}</div>
                                                 </Link>

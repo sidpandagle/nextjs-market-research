@@ -79,12 +79,6 @@ export default function ReportBuyNow({ report }) {
         aria-describedby="modal-modal-description"
       >
         <Box>
-          {/* <div className='flex items-center justify-center'>
-            <div className=' m-2 py-6 px-10 w-[700px] rounded-md bg-white'>
-              <div className="pb-2 mb-2 text-xl font-semibold text-center">Request Discount</div>
-              <RequestSample reportTitle={report?.title.split('Market')[0] + 'Market'} enquiryType='Request Discount' closeModal={handleDiscountFormClose} />
-            </div>
-          </div> */}
           <div className='flex items-center justify-center'>
             <div className=' m-2 p-4 md:p-6 w-[350px] md:w-[700px] rounded-md bg-white'>
               <div className="flex justify-between pb-2 mb-2 text-xl font-semibold text-center">

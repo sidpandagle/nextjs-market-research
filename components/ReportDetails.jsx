@@ -11,8 +11,9 @@ import Faq from '@/components/Faq';
 import Methodology from '@/components/Methodology';
 
 export default function ReportBuyNow({ report, url, section }) {
-
+  
   const [localReport, setLocalReport] = useState(report);
+  const [isNoTOC, setNoTOC] = useState(report);
 
   const [img1, setImg1] = useState('');
   const [img2, setImg2] = useState('');
@@ -57,7 +58,9 @@ export default function ReportBuyNow({ report, url, section }) {
       methodologyImgToModify1.style.height = '0px';
     }
     reportData.methodology = methodologyDoc.documentElement.outerHTML;
-
+    if(extractContent(reportData.toc)=='Request Table of Contents'){
+      setNoTOC(true);
+    } 
     setLocalReport(reportData);
     getReportImages(reportData.id);
   }
@@ -88,6 +91,15 @@ export default function ReportBuyNow({ report, url, section }) {
       }
     }
   }
+
+
+  const extractContent = (s) => {
+    let span = document.createElement('span');
+    span.innerHTML = s;
+    console.log(span.textContent || span.innerText)
+    return span.textContent || span.innerText;
+  }
+
   return (
     <div>
       <div className={`${section !== 'Request' && 'md:sticky top-0'} p-4 relative justify-between gap-2 bg-white md:flex`}>
@@ -106,9 +118,14 @@ export default function ReportBuyNow({ report, url, section }) {
             {localReport?.description && <Faq faqs={JSON.parse(localReport?.faqs)} />}
           </div>
         }
-        {section === 'Table' &&
+        {section === 'Table' && !isNoTOC &&
           <div>
             <div dangerouslySetInnerHTML={{ __html: localReport?.toc }}></div>
+          </div>
+        }
+        {section === 'Table' && isNoTOC &&
+          <div className='flex items-center justify-center h-36'>
+            <div>Request Table Of Contents</div>
           </div>
         }
         {section === 'Highlights' &&
